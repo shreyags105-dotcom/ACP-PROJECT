@@ -56,14 +56,18 @@ void drawLine(int x1, int y1, int x2, int y2) {
     float x = x1;
     float y = y1;
 
-    for (int i = 0; i <= steps; i++) {
-        if ((int)x >= 0 && (int)x < COLS &&
-            (int)y >= 0 && (int)y < ROWS)
-            canvas[(int)y][(int)x] = '*';
+   for (int i = 0; i <= steps; i++) {
 
-        x += xInc;
-        y += yInc;
-    }
+    int px = (int)(x + 0.5);
+    int py = (int)(y + 0.5);
+
+    if (px >= 0 && px < COLS &&
+        py >= 0 && py < ROWS)
+        canvas[py][px] = '*';
+
+    x += xInc;
+    y += yInc;
+}
 }
 
 // Draw rectangle
@@ -183,6 +187,7 @@ void redrawObjects() {
 void addObject(Shape s) {
     if (objectCount < MAX_OBJECTS) {
         objects[objectCount++] = s;
+        printf("Object added! Count = %d\n", objectCount);
         redrawObjects();
     } else {
         printf("Object limit reached!\n");
